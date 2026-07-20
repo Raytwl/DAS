@@ -15,12 +15,24 @@
 - DAS method: uses KRnet (normalizing flow) to learn residual distribution, generates adaptive samples
 - Two variants: DAS-G (grow training set) and DAS-R (replace all samples)
 
+## Training Results (2D Peak, probsetup=3)
+- Training run in WSL Ubuntu (\\wsl.localhost\Ubuntu\home\tan\DAS)
+- Method: DAS-G (replace_all=0, default), n_train=1000, batch_size=1000
+- 5 PDE stages + 4 flow stages, n_epochs=3000 per stage
+- Stage boundaries (cumulative iterations): [0, 3000, 9000, 18000, 30000, 45000]
+- Validation error: 0.042 -> 0.00057 (MSE)
+- 4 resample stages saved (stage_1 to stage_4)
+- Stage 2 samples concentrate around (0.5, 0.5) = peak location
+- Data copied to Windows store_data/ on 2026-07-15
+
 ## Files Created
 - das_plot.py: Visualization script generating all 18 figure types from paper
   - Supports --demo mode (synthetic data for preview)
-  - Reads from store_data/ after training
+  - Reads from store_data/ after training (REAL DATA mode)
   - Custom color palette (different from paper to avoid plagiarism)
   - argparse interface similar to das_train.py
+  - Real data figures: solution comparison, error curve, adaptivity steps,
+    training set evolution, loss curves, residual loss with stages
 
 ## Code Structure (original, do not modify)
 - das_train.py: Main training entry point
